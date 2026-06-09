@@ -9,6 +9,13 @@ const ACTION = [
   join(REPO_ROOT, "node_modules", "tsx", "dist", "cli.mjs"),
   join(REPO_ROOT, "src", "action", "index.ts"),
 ];
+const LOCAL_ACTION_ENV = {
+  GITHUB_OUTPUT: "",
+  GITHUB_STATE: "",
+  GITHUB_ENV: "",
+  GITHUB_PATH: "",
+  GITHUB_STEP_SUMMARY: "",
+};
 
 describe("GitHub Action harness", () => {
   test("runs fixture pull request in dry-run gate mode", async () => {
@@ -76,6 +83,6 @@ function runAction(env: Record<string, string>) {
   return spawnSync(process.execPath, ACTION, {
     cwd: REPO_ROOT,
     encoding: "utf8",
-    env: { ...process.env, ...env },
+    env: { ...process.env, ...LOCAL_ACTION_ENV, ...env },
   });
 }
