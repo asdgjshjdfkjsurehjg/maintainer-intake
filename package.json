@@ -59,9 +59,10 @@
     "build": "tsup src/index.ts src/cli/index.ts src/mcp/index.ts --format esm --dts --sourcemap --clean --out-dir dist",
     "build:action": "ncc build src/action/index.ts -o dist/action --source-map && find dist/action -name '*.d.ts' -delete && rm -f dist/action/package.json",
     "verify:bundle": "node scripts/verify-bundle.mjs",
+    "verify:action-dist": "git diff --exit-code -- dist/action",
     "verify:pack": "node scripts/verify-pack.mjs",
     "verify:security": "node scripts/verify-security.mjs",
-    "verify": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run test:integration && npm run test:e2e && npm run build && npm run build:action && npm run verify:bundle && npm run verify:pack && npm run verify:security"
+    "verify": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run test:integration && npm run test:e2e && npm run build && npm run build:action && npm run verify:bundle && npm run verify:action-dist && npm run verify:pack && npm run verify:security"
   },
   "dependencies": {
     "@actions/core": "3.0.1",

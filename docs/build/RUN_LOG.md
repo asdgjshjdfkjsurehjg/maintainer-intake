@@ -159,3 +159,31 @@ Commands run:
 | npm run verify:bundle                                       |    0 | Action bundle presence check passed.                      |
 | npm run verify:security                                     |    0 | Privileged-event static security scan passed.             |
 | npm run build:action && git diff --exit-code -- dist/action |    0 | Rebuilt committed Action bundle with zero diff.           |
+
+## 2026-06-09: Documentation, CI, And Package Verification Slice
+
+Expected files:
+
+- Public README, configuration, rules, Action, MCP, security-model, troubleshooting, and release docs.
+- Example policy, example Action workflow, and sample maintainer packet.
+- Community files: license, contributing guide, security policy, support guide, code of conduct, changelog, issue forms, and pull request template.
+- Pinned CI, CodeQL, dependency-review, and Dependabot configuration.
+- Package verification that rejects private/build-only artifacts and installs the packed tarball from a temporary directory.
+
+Decisions:
+
+- CI uses pinned third-party Action SHAs and runs the same `npm run verify` lane on Node 22 and Node 24.
+- The public Action example avoids checkout because the Action only needs GitHub event/API metadata.
+- The packed-install verifier now packs into a temporary directory so verification does not leave generated tarballs in the source tree.
+- The final verification script now includes `git diff --exit-code -- dist/action` after rebuilding the Action bundle.
+
+Commands run:
+
+| Command                                                                                                                                             | Exit | Observation                                                                                   |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | ---: | --------------------------------------------------------------------------------------------- |
+| npm run format:check                                                                                                                                |    0 | Initial run found one Markdown formatting issue; Prettier fixed it.                           |
+| npx prettier --write .                                                                                                                              |    0 | Formatted the new docs and YAML files.                                                        |
+| npm run verify                                                                                                                                      |    0 | Full local lane passed: format, lint, typecheck, unit, integration, E2E, builds, pack, audit. |
+| npm run verify:pack                                                                                                                                 |    0 | Packed-install smoke passed after moving `npm pack` output into a temporary directory.        |
+| Private-marker scan against local-only planning phrases                                                                                             |    0 | No private planning or local path markers found in public files.                              |
+| rg -n "\\b(TODO\|FIXME\|TBD\|PLACEHOLDER\|your-org\|your-repo\|example\\.com)\\b" . --glob "!node_modules/**" --glob "!.git/**" --glob "!dist/\*\*" |    0 | No authored placeholder markers found outside the generated Action bundle.                    |
