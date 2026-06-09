@@ -237,3 +237,26 @@ Commands run:
 | npm exec --package node@22 -- node --run verify                                                                                      |    0 | Full verify passed under Node 22.22.3.                                                                           |
 | npm exec --package node@24 -- node --run verify                                                                                      |    0 | Full verify passed under Node 24.16.0.                                                                           |
 | git clone local product repo to /tmp; npm ci; npm exec --package node@24 -- node --run verify; git status --short in the fresh clone |    0 | Fresh clone at commit 332c0350ebc36902beb2c40c4c19382b770fd30e installed cleanly and passed full Node 24 verify. |
+
+## 2026-06-09: Public Repository, Settings, And CI
+
+Purpose:
+
+- Publish the product repository only after local release gates passed.
+- Verify repository settings and public CI by read-back, not by mutation success alone.
+- Fix the first public CI failure before release.
+
+Commands and events:
+
+| Command or event                                                                                               | Exit/state | Observation                                                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------- | ---------: | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| gh repo create asdgjshjdfkjsurehjg/maintainer-intake --public --disable-wiki --source=. --remote=origin --push |          0 | Created https://github.com/asdgjshjdfkjsurehjg/maintainer-intake and pushed `deaa818` to `main`.                                                  |
+| gh repo edit settings/topics command                                                                           |          0 | Discussions enabled, projects disabled, wiki disabled, merge settings and topics applied.                                                         |
+| Security feature API mutations                                                                                 |          0 | Vulnerability alerts, automated security fixes, secret scanning, push protection, and private vulnerability reporting mutations returned success. |
+| Branch protection API mutation                                                                                 |          0 | `main` read back with force pushes and deletions disabled, with no required status checks or required reviews.                                    |
+| Initial CI run 27242867100                                                                                     |    failure | Action harness tests inherited GitHub runner file-command env vars, so `@actions/core.setOutput` wrote to `GITHUB_OUTPUT` instead of stdout.      |
+| Local regression fix verification                                                                              |          0 | `npm run test:e2e`, `npm run verify`, and a local E2E run with `GITHUB_OUTPUT`/`GITHUB_STEP_SUMMARY` set all passed.                              |
+| git push origin main                                                                                           |          0 | Pushed fix commit `860632dca3e0dcb3a29200e66539b6b57de091b6`.                                                                                     |
+| Public CI run 27242961108                                                                                      |    success | Node 22 and Node 24 jobs passed.                                                                                                                  |
+| Public CodeQL run 27242961094                                                                                  |    success | CodeQL Analyze job passed.                                                                                                                        |
+| Remote settings and workflow read-backs                                                                        |          0 | Saved sanitized field-by-field audit in `artifacts/verification/github-settings.md`.                                                              |
