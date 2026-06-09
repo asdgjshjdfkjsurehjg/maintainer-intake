@@ -1,0 +1,9 @@
+# Verification Evidence Ledger
+
+This ledger records sanitized dogfood and verification evidence. Do not store tokens, raw authorization headers, sensitive issue bodies, or private planning material here.
+
+## Evidence Entries
+
+| Date | Slice | Rows | Command | Exit | Evidence | Follow-up |
+|---|---|---|---|---|---|---|
+| 2026-06-09 | Product baseline | A-001, A-002, R-012 | `git -C maintainer-intake diff --check`; product git identity checks; private-marker `rg` scan | 0 | Governance files created before product code; diff hygiene passed; product identity is `Joseph <128547272+asdgjshjdfkjsurehjg@users.noreply.github.com>`; no private markers matched. | Commit baseline, then scaffold package. |
