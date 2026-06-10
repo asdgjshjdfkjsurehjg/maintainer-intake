@@ -1,17 +1,18 @@
 # Final Verification Report
 
-Status: verified for v0.1.0 release correction.
+Status: verified for the supported v0.1.1 release.
 
-This report records the completed local, package, public repository, live-provider, and release gates for maintainer-intake v0.1.0.
+This report records the completed local, package, public repository, live-provider, GitHub release, and npm publication gates for maintainer-intake v0.1.1.
 
 ## Final Product Commit
 
-- Current verified implementation commit: a0edd41dc9aa86000b32c6e22950a150eb355ea7
+- Supported implementation and release commit: efdf6322f2c7e430877b7a53eaa8f0116d1f9d7f
+- Current evidence documentation commit: 5423d06164ec32b6dc6ac5d2c83d76f7a88f3024
 - Public repository: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake
-- Release URL: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/releases/tag/v0.1.0
+- Release URL: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/releases/tag/v0.1.1
 - Floating Action tag: v0
 
-The v0.1.0 and v0 tags must point to the final verified commit after this evidence update is pushed and public CI passes.
+The v0.1.1 and v0 tags dereference to efdf6322f2c7e430877b7a53eaa8f0116d1f9d7f.
 
 ## Public Repository
 
@@ -27,15 +28,15 @@ The v0.1.0 and v0 tags must point to the final verified commit after this eviden
 
 ## Public CI State
 
-Implementation correction commit a0edd41dc9aa86000b32c6e22950a150eb355ea7 passed public CI and CodeQL:
+The v0.1.1 release commit passed public CI and CodeQL:
 
-- CI run: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/actions/runs/27243840809
-- CodeQL run: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/actions/runs/27243840844
+- CI run: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/actions/runs/27298546865
+- CodeQL run: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/actions/runs/27298546835
 
-The previous release-report commit 960ace49f38ca0f834de865f13999c127eb222bc also passed:
+The evidence documentation commit also passed:
 
-- CI run: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/actions/runs/27243318116
-- CodeQL run: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/actions/runs/27243318108
+- CI run: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/actions/runs/27298889978
+- CodeQL run: https://github.com/asdgjshjdfkjsurehjg/maintainer-intake/actions/runs/27298889984
 
 ## Verification Commands
 
@@ -73,9 +74,9 @@ Verified:
 - Public repository creation under the approved owner.
 - Metadata, topics, merge settings, branch protection, security settings, workflow activation, CI, CodeQL, and settings-audit read-backs.
 
-External blocker:
+External blockers:
 
-- npm publication remains pending because npm authentication is not active on this machine. npm whoami returned ENEEDAUTH, and no npm publish was attempted.
+- None for the v0.1.1 release. Marketplace listing remains optional and adoption must not be fabricated.
 
 ## GitHub Settings Audit
 
@@ -88,9 +89,11 @@ Unsupported or account-dependent settings:
 
 ## npm Publication State
 
-- npm view maintainer-intake version --json returned E404 on 2026-06-09.
-- npm whoami returned ENEEDAUTH on 2026-06-09.
-- The package is release-ready for local tarball and future npm activation, but unpublished.
+- Package: https://www.npmjs.com/package/maintainer-intake
+- Owner: `asdgjshjdfkjsurehjg`
+- `latest`: `0.1.1`
+- A clean registry install ran `maintainer-intake --version` and a ready-PR fixture analysis successfully through the package-manager binary.
+- Version `0.1.0` is deprecated with an upgrade warning because its installed CLI did not launch through npm symlinks.
 
 ## Privacy And History Scan
 

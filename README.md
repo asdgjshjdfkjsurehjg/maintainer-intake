@@ -6,6 +6,17 @@ Maintainer Intake validates whether an issue or pull request contains the eviden
 
 It does not detect authorship. It evaluates evidence and accountability.
 
+## Install
+
+Run without installing globally:
+
+    npx --yes maintainer-intake@0.1.1 --version
+    npx --yes maintainer-intake@0.1.1 init
+
+Or install the CLI globally:
+
+    npm install --global maintainer-intake@0.1.1
+
 ## 60-second fixture demo
 
     npm ci
@@ -25,7 +36,13 @@ Live GitHub reads use OWNER/REPO#NUMBER and require GITHUB_TOKEN or GH_TOKEN.
 
 ## GitHub Action
 
-Use the Action in advisory mode first. See docs/github-action.md for permissions, modes, rollback, and safe event guidance.
+Use the Action in advisory mode first:
+
+    - uses: asdgjshjdfkjsurehjg/maintainer-intake@v0
+      with:
+        mode: advisory
+
+See docs/github-action.md for the complete workflow, permissions, modes, outputs, rollback, and safe event guidance.
 
 ## MCP
 
@@ -34,6 +51,8 @@ Run the stdio MCP server with:
     maintainer-intake mcp
 
 The MCP server exposes analyze_pr_intake, analyze_issue_intake, render_maintainer_packet, generate_policy_files, and explain_intake_config.
+
+See docs/mcp.md for an `npx`-based MCP client configuration.
 
 ## Statuses And Modes
 

@@ -26,6 +26,24 @@ Minimal workflow:
 
 Start with advisory mode. Move to check, label, or gate only after the packet matches project policy.
 
+Inputs:
+
+- `config`: config path; defaults to `.github/maintainer-intake.yml`.
+- `mode`: optional `advisory`, `check`, `label`, or `gate` override.
+- `token`: GitHub token for API reads and enabled writes.
+- `comment`: create or update the marked intake comment; defaults to `true`.
+- `labels`: apply configured labels; defaults to `false`.
+- `check-name`: check-run name; defaults to `Maintainer Intake`.
+
+Outputs:
+
+- `status`: deterministic intake status.
+- `score`: score from 0 to 100.
+- `result-json`: serialized intake result.
+- `packet-summary`: one-line maintainer summary.
+
+Supported events are `pull_request`, `pull_request_target`, and `issues`. Other events return `unsupported_event` with score `0` and do not perform writes.
+
 Rollback:
 
 1. Remove the workflow.

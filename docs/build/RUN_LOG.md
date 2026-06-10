@@ -284,3 +284,26 @@ Commands and events:
 | Temporary branch codex/live-smoke-pr and PR #2                                                                              |          0 | Created a controlled docs-only public PR for live pull-request smoke.                                                                                                |
 | GITHUB_TOKEN from gh auth token; node dist/cli/index.js analyze-pr asdgjshjdfkjsurehjg/maintainer-intake#2 --format json    |          0 | Live PR analysis returned kind pull_request, number 2, status needs_author_evidence, score 71.                                                                       |
 | gh pr close 2 --delete-branch                                                                                               |          0 | Closed the live smoke PR and deleted the remote branch.                                                                                                              |
+
+## 2026-06-10: npm Publication And v0.1.1 Correction
+
+Purpose:
+
+- Publish the package under the verified npm owner.
+- Detect and correct installed-package behavior through the actual package-manager executable.
+- Publish and verify the supported patch release.
+
+Commands and events:
+
+| Command or event                                 | Exit/state | Observation                                                                                                |
+| ------------------------------------------------ | ---------: | ---------------------------------------------------------------------------------------------------------- |
+| npm profile get; npm whoami                      |          0 | npm 2FA was enabled and owner `asdgjshjdfkjsurehjg` was verified.                                          |
+| npm publish --access public                      |          0 | Published `maintainer-intake@0.1.0`; registry smoke then exposed a symlink entrypoint defect.              |
+| npm run verify:pack after entrypoint/test repair |          0 | The real `node_modules/.bin/maintainer-intake` executable printed 0.1.1 and analyzed the ready PR fixture. |
+| npm run verify                                   |          0 | Full local lane passed on commit `efdf6322f2c7e430877b7a53eaa8f0116d1f9d7f`.                               |
+| Public CI 27298546865; CodeQL 27298546835        |    success | Node 22/24 and CodeQL passed on the v0.1.1 release commit.                                                 |
+| GitHub release v0.1.1; update v0                 |          0 | Both tags dereference to `efdf6322f2c7e430877b7a53eaa8f0116d1f9d7f`.                                       |
+| npm publish --access public                      |          0 | Published `maintainer-intake@0.1.1` as `latest`.                                                           |
+| Clean registry install and fixture analysis      |          0 | Installed CLI printed 0.1.1 and returned `ready_for_review` with score 100.                                |
+| npm deprecate maintainer-intake@0.1.0            |          0 | Added an upgrade warning directing users to 0.1.1 or later.                                                |
+| Evidence docs CI 27298889978; CodeQL 27298889984 |    success | Final evidence-only commit passed public CI and CodeQL.                                                    |

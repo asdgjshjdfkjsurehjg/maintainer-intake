@@ -1,6 +1,6 @@
 # Premortem
 
-Status: open until each tiger has implementation proof.
+Status: closed for v0.1.1; recheck these risks before future releases.
 
 This premortem records risks that must be controlled before implementation and rechecked before release.
 
@@ -25,8 +25,8 @@ This premortem records risks that must be controlled before implementation and r
 
 ## Elephant Risks
 
-| Risk                                             | Mitigation                                                                                | Verification                                                                                                  |
-| ------------------------------------------------ | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| A new public repository does not prove adoption. | Do not fabricate adoption. Ship useful docs, examples, and honest release evidence.       | Public docs and final report avoid usage, star, download, or adoption claims unless verified.                 |
-| The GitHub username is unconventional.           | Compensate with clear project description, README, community files, topics, and settings. | GitHub metadata audit verifies description, topics, docs, license, and community files.                       |
-| npm package ownership is not verified yet.       | Treat npm publish as a separate activation gate. Do not change package identity silently. | npm name, auth, and ownership checks are recorded before any publish; pending state is documented if blocked. |
+| Risk                                                             | Mitigation                                                                                                   | Verification                                                                                                               |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| A new public repository does not prove adoption.                 | Do not fabricate adoption. Ship useful docs, examples, and honest release evidence.                          | Public docs and final report avoid usage, star, download, or adoption claims unless verified.                              |
+| The GitHub username is unconventional.                           | Compensate with clear project description, README, community files, topics, and settings.                    | GitHub metadata audit verifies description, topics, docs, license, and community files.                                    |
+| npm package ownership or installed CLI behavior is not verified. | Treat npm publish as a separate activation gate and execute the package-manager binary from a clean install. | Version 0.1.1 is owned by `asdgjshjdfkjsurehjg`; clean registry installation, version output, and fixture analysis passed. |
